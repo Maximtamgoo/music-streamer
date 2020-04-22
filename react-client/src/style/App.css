@@ -1,0 +1,12 @@
+.App {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.file-drop {
+  margin-top: 10px;
+  border: 2px dashed var(--light-blue);
+  outline: none;
+  padding: 5px;
+  text-align: center;
+}
