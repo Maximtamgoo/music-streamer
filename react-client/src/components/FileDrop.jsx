@@ -1,9 +1,19 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { getMetaData } from './music-metadata-browser'
 
 const FileDrop = () => {
   const onDrop = useCallback(async acceptedFiles => {
     console.log('acceptedFiles:', acceptedFiles)
+
+
+    for (const file of acceptedFiles) {
+      let metadata = await getMetaData(file)
+      console.log(metadata)
+    }
+
+    return
+
 
     const formData = new FormData()
     acceptedFiles.forEach(file => {

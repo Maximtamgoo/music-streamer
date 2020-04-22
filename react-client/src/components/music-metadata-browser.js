@@ -1,7 +1,10 @@
-import * as musicMetadata from 'music-metadata-browser'
+import * as mmd from 'music-metadata-browser'
 
-const getMetaData = async (url) => {
-  return await musicMetadata.fetchFromUrl(url)
+const getMetaData = async (blob) => {
+
+  return await mmd.parseBlob(blob)
+
+  // return await musicMetadata.fetchFromUrl(url)
 
   // musicMetadata.parseReadableStream(readableStream)
   // .then(metadata => {
@@ -10,4 +13,4 @@ const getMetaData = async (url) => {
   //  })
 }
 
-export default getMetaData
+export { getMetaData }

@@ -7,7 +7,7 @@
     "start": "node server/server.js",
     "dev-server": "nodemon server/server.js",
     "dev-client": "cd react-client && npm start",
-    "dev":"concurrently \"npm:dev-*\""
+    "dev": "concurrently \"npm:dev-*\""
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "mongodb": "^3.5.6",
     "mongoose": "^5.9.9",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "music-metadata-browser": "^2.0.5"
   }
 }

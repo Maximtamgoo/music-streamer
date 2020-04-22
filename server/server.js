@@ -7,7 +7,6 @@ const mongoose = require('mongoose')
 let gridFSBucket = null
 mongoose.connect('mongodb://localhost:27017/music-streaming-db', { useNewUrlParser: true, useUnifiedTopology: true }).then(client => {
   gridFSBucket = new mongoose.mongo.GridFSBucket(client.connection.db, { bucketName: 'songs' })
-  // gridFSBucket.openUploadStream(req.files[0].originalname).on('finish', () => {})
 }).catch(error => {
   console.log('error.name:', error.name)
   console.log('error.message:', error.message)
