@@ -35,11 +35,3 @@
 .song-list { grid-area: song-list; }
 
 .player { grid-area: player; }
-
-/* .file-drop {
-  margin-top: 10px;
-  border: 2px dashed var(--light-blue);
-  outline: none;
-  padding: 5px;
-  text-align: center;
-} */

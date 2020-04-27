@@ -1,0 +1,5 @@
+.file-drop {
+  border: 2px dashed var(--light-blue);
+  outline: none;
+  text-align: center;
+}

@@ -1,38 +1,35 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { getMetaData } from '../music-metadata-browser'
+import '../../style/FileDrop.css'
+// import { getMetaData } from '../music-metadata-browser'
 
 const FileDrop = () => {
   const onDrop = useCallback(async acceptedFiles => {
     console.log('acceptedFiles:', acceptedFiles)
 
-
-    for (const file of acceptedFiles) {
-      let metadata = await getMetaData(file)
-      console.log(metadata)
-    }
-
-    return
-
+    // for (const file of acceptedFiles) {
+    //   let metadata = await getMetaData(file)
+    //   console.log(metadata)
+    // }
+    // return
 
     const formData = new FormData()
     acceptedFiles.forEach(file => {
       formData.append('songs', file)
     })
 
-    try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData
-      })
-      const data = await res.text()
-      console.log('data:', data)
-    } catch (error) {
-      console.log('error:', error)
-    }
-
-    // const res = await fetch('/api')
+    // try {
+    //   const res = await fetch('/api/upload', {
+    //     method: 'POST',
+    //     body: formData
+    //   })
+    //   const data = await res.text()
+    //   console.log('data:', data)
+    // } catch (error) {
+    //   console.log('error:', error)
+    // }
   }, [])
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   return (
