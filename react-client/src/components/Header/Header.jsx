@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../style/Header.css'
 
-const App = () => {
+const Header = () => {
   return (
     <div className="header">
       Header
@@ -9,4 +9,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Header
