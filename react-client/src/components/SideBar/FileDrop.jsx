@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { getMetaData } from './music-metadata-browser'
+import { getMetaData } from '../music-metadata-browser'
 
 const FileDrop = () => {
   const onDrop = useCallback(async acceptedFiles => {

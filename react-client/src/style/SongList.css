@@ -1,12 +1,9 @@
 .song-list {
   list-style-type: none;
   border: 1px solid blue;
-  max-height: 40em;
-  overflow-y: auto;
-  color: red;
-  display: block;
+  color: black;
   padding: 10px;
-  margin: 0 0 10px 0;
+  overflow-y: scroll;
 }
 
 .song-item {

@@ -1,12 +1,45 @@
 .App {
-  border: 1px solid black;
-  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 75px auto 120px;
+  gap: 2px 2px;
+  grid-template-areas: "header" "middle" "player";
 }
 
-.file-drop {
+.header { grid-area: header; }
+
+.middle {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr;
+  gap: 2px 2px;
+  grid-template-areas: "side-bar main-content";
+  grid-area: middle;
+  overflow: hidden;
+}
+
+.side-bar { grid-area: side-bar; }
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px auto;
+  gap: 2px 2px;
+  grid-template-areas: "filter" "song-list";
+  grid-area: main-content;
+  overflow: hidden;
+}
+
+.filter { grid-area: filter; }
+
+.song-list { grid-area: song-list; }
+
+.player { grid-area: player; }
+
+/* .file-drop {
   margin-top: 10px;
   border: 2px dashed var(--light-blue);
   outline: none;
   padding: 5px;
   text-align: center;
-}
+} */

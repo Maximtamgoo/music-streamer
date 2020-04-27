@@ -4,18 +4,12 @@ import '../../style/SongList.css'
 
 const SongList = () => {
 
-  const items = Array(10).fill({ name: 'song 1' })
-
-  // const items = [
-  //   { name: 'song 1' },
-  //   { name: 'song 2' },
-  //   { name: 'song 3' }
-  // ]
+  const items = Array(50).fill({ name: 'song 1' })
 
   return (
-    <ul className={'song-list'}>
+    <div className="song-list">
       {items.map((e, i) => <SongItem key={i} name={e.name} />)}
-    </ul>
+    </div>
   )
 }
 

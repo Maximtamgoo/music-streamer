@@ -1,18 +1,23 @@
 import React from 'react'
 import '../style/App.css'
-import SongList from './Library/SongList'
-// import MusicUploader from './Library/SongUploader'
+import Header from './Header/Header'
+import SideBar from './SideBar/SideBar'
+import Filter from './SongList/Filter'
+import SongList from './SongList/SongList'
 import Player from './Player/Player'
-import FileDrop from './FileDrop'
 
 const App = () => {
-
   return (
     <div className="App">
-      <SongList />
-      {/* <MusicUploader /> */}
+      <Header />
+      <div className="middle">
+        <SideBar />
+        <div className="main-content">
+          <Filter />
+          <SongList />
+        </div>
+      </div>
       <Player />
-      <FileDrop />
     </div>
   )
 }
