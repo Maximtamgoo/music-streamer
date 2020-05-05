@@ -1,0 +1,12 @@
+.player {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+}
+
+.song-title {
+  text-align: center;
+  padding: 7px;
+  /* border: 1px solid red; */
+  height: 20%;
+}

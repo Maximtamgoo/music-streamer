@@ -1,6 +1,6 @@
 import React from 'react'
 import Controls from './Controls'
-import '../../style/Player.css'
+import './style/Player.css'
 
 const Player = () => {
 

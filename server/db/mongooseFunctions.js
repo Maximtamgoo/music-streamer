@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-class Mongoose {
+
+class MongooseFunctions {
   constructor() {
     // this.mongoose
   }
@@ -16,8 +17,7 @@ class Mongoose {
     const gridFSBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, options)
   }
 }
-
-module.exports = new Mongoose()
+module.exports = new MongooseFunctions()
 
 // module.exports = (async () => {
 //   try {

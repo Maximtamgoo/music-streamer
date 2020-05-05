@@ -2,4 +2,5 @@
   border: 2px dashed var(--light-blue);
   outline: none;
   text-align: center;
+  flex-grow: 1;
 }

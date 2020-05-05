@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './style/Controls.css'
 import { MdPlayArrow, MdPause, MdSkipNext, MdSkipPrevious } from 'react-icons/md'
 
 const Controls = () => {

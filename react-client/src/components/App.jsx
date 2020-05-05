@@ -1,9 +1,8 @@
 import React from 'react'
-import '../style/App.css'
+import './App.css'
 import Header from './Header/Header'
 import SideBar from './SideBar/SideBar'
-import Filter from './SongList/Filter'
-import SongList from './SongList/SongList'
+import SongsPanel from './SongsPanel/SongsPanel'
 import Player from './Player/Player'
 
 const App = () => {
@@ -12,10 +11,7 @@ const App = () => {
       <Header />
       <div className="middle">
         <SideBar />
-        <div className="main-content">
-          <Filter />
-          <SongList />
-        </div>
+        <SongsPanel />
       </div>
       <Player />
     </div>

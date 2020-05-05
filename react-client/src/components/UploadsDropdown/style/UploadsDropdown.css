@@ -1,0 +1,47 @@
+.uploads-dropdown {
+  border: 1px solid green;
+  padding: 5px;
+}
+
+.dropdown-top {
+  display: flex;
+}
+
+.icon-btn-drop {
+  align-self: center;
+}
+
+.uploads-list {
+  border: 1px solid red;
+}
+
+.uploads-item {
+  border: 1px solid blue;
+}
+
+/* .uploads-dropdown {
+  border: 1px solid green;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1px 1px;
+  grid-template-areas: "grid-top" "grid-bottom";
+}
+
+.grid-top {
+  border: 5px solid green;
+  display: grid;
+  grid-template-columns: auto 40px;
+  grid-template-rows: 1fr;
+  gap: 1px 1px;
+  grid-template-areas: "grid-file-drop grid-dropdown-btn";
+  grid-area: grid-top;
+}
+
+.grid-file-drop { grid-area: grid-file-drop; border: 1px solid red;}
+
+.grid-dropdown-btn { grid-area: grid-dropdown-btn; }
+
+.grid-bottom { 
+  border: 1px solid blue;
+  grid-area: grid-bottom; } */

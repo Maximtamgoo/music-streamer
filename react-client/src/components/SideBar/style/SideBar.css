@@ -1,0 +1,7 @@
+.side-bar {
+  border: 1px solid green;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}

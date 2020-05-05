@@ -1,10 +1,10 @@
 import React from 'react'
+import './style/SongList.css'
 import SongItem from './SongItem'
-import '../../style/SongList.css'
 
 const SongList = () => {
 
-  const items = Array(50).fill({ name: 'song 1' })
+  const items = Array(50).fill({ name: 'Song Title' })
 
   return (
     <div className="song-list">

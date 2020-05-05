@@ -1,12 +1,12 @@
 import React from 'react'
-import '../../style/SideBar.css'
-import FileDrop from './FileDrop'
+import './style/SideBar.css'
+import UploadsDropdown from '../UploadsDropdown/UploadsDropdown'
 
 const SideBar = () => {
   return (
     <div className="side-bar">
       SideBar
-      <FileDrop />
+      <UploadsDropdown />
     </div>
   )
 }
