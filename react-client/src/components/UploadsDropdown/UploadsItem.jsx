@@ -1,9 +1,14 @@
 import React from 'react'
 
-const UploadsItem = ({ name }) => {
+const UploadsItem = ({ name, completed }) => {
   return (
     <div className="uploads-item">
-      {name}
+      <div>
+        {name}
+      </div>
+      <div>
+        progress bar - completed: {String(completed)}
+      </div>
     </div>
   )
 }

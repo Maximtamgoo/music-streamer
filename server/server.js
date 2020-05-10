@@ -43,7 +43,12 @@ app.get('/api', (req, res) => {
 
 app.post('/api/upload/single', multerUpload.single('song'), async (req, res, next) => {
   console.log('/api/upload/single')
-  console.log('req.file:', req.file.originalName)
+  try {
+    console.log('req.file:', req.file.originalName)
+  } catch (error) {
+    console.log('error:', error)
+  }
+  
 
   res.send('res from /api/upload/single')
 })

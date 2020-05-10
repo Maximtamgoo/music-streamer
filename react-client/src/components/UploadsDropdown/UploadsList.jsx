@@ -2,13 +2,16 @@ import React from 'react'
 import './style/UploadsList.css'
 import UploadsItem from './UploadsItem'
 
-const UploadsList = () => {
-
-  const items = Array(10).fill({ name: 'Uploads Item' })
+const UploadsList = ({ currentUploads }) => {
 
   return (
     <div className="uploads-list">
-      {items.map((e, i) => <UploadsItem key={i} name={e.name} />)}
+      {Object.keys(currentUploads).map((e, i) => {
+        // const info = { name: e.name }
+        return (
+          <UploadsItem key={i} name={currentUploads[e].name} completed={currentUploads[e].completed}/>
+        )
+      })}
     </div>
   )
 }
