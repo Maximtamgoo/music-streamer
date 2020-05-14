@@ -3,13 +3,13 @@ import { useDropzone } from 'react-dropzone'
 import './style/FileDrop.css'
 // import extractMetadata from '../../utils/extractMetadata'
 
-const FileDrop = ({ uploadSongs }) => {
+const FileDrop = ({ getAcceptedFiles }) => {
   const onDrop = useCallback(acceptedFiles => {
     if (acceptedFiles.length === 0 || acceptedFiles.length > 20) return
     console.log('acceptedFiles:', acceptedFiles)
 
-    uploadSongs(acceptedFiles)
-  }, [uploadSongs])
+    getAcceptedFiles(acceptedFiles)
+  }, [getAcceptedFiles])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 

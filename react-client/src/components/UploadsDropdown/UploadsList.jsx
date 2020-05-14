@@ -1,15 +1,21 @@
 import React from 'react'
 import './style/UploadsList.css'
+import { useSelector } from 'react-redux'
 import UploadsItem from './UploadsItem'
 
-const UploadsList = ({ currentUploads }) => {
+const UploadsList = () => {
+  const uploads = useSelector(state => state)
 
   return (
     <div className="uploads-list">
-      {Object.keys(currentUploads).map((e, i) => {
-        // const info = { name: e.name }
+      {Object.keys(uploads).map((e, i) => {
+        const { name, loaded, total } = uploads[e]
         return (
-          <UploadsItem key={i} name={currentUploads[e].name} completed={currentUploads[e].completed}/>
+          <UploadsItem key={i}
+            name={name}
+            loaded={loaded}
+            total={total}
+          />
         )
       })}
     </div>
