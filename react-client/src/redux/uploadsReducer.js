@@ -6,9 +6,9 @@
 //   }
 // }
 
-const initState = {}
+const uploadsList = {}
 
-const uploadsReducer = (state = initState, action) => {
+const uploadsReducer = (state = uploadsList, action) => {
   const { id, name, loaded, total } = action
   switch (action.type) {
     case 'ADD_UPLOAD_ITEM':

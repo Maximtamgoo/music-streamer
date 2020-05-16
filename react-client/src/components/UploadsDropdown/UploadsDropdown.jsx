@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { uploadSongs } from '../../redux/uploadsActions'
-// import axios from 'axios'
+import { uploadSong, addUploadItem } from '../../redux/uploadsActions'
+import { v1 as uuidv1 } from 'uuid'
 import './style/UploadsDropdown.css'
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
 import FileDrop from './FileDrop'
@@ -11,9 +11,23 @@ const UploadsDropdown = () => {
   const dispatch = useDispatch()
   const [showList, setShowList] = useState(false)
 
-  const getAcceptedFiles = async (songs) => {
-    dispatch(uploadSongs(songs))
-    console.log('end of dispatch')
+  const getAcceptedFiles = (songs) => {
+    songs.map(async (song) => {
+      try {
+        const id = uuidv1()
+        dispatch(addUploadItem({ id, name: song.name }))
+        const res = await dispatch(uploadSong(song, id))
+        console.log('res:', res)
+        // dispatch(setSongListSynced(false))
+        // or
+        // dispatch(addSongToSongList())
+      } catch (error) {
+        console.log('error:', error)
+        // dispatch()
+      }
+      console.log('end of song iteration')
+    })
+    console.log('end of map loop')
   }
 
   // const [currentUploads, setCurrentUploads] = useState({})
@@ -47,7 +61,7 @@ const UploadsDropdown = () => {
   return (
     <div className="uploads-dropdown">
       <div className="dropdown-top">
-        <FileDrop getAcceptedFiles={getAcceptedFiles}/>
+        <FileDrop getAcceptedFiles={getAcceptedFiles} />
         <button className="icon-btn icon-btn-drop" onClick={() => setShowList(!showList)}>
           {showList ? <MdKeyboardArrowDown className="icon" /> :
             <MdKeyboardArrowUp className="icon" />}
