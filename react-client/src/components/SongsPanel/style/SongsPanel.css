@@ -1,4 +1,7 @@
 .songs-panel {
   border: 1px solid black;
   padding: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }

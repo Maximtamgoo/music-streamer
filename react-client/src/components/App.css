@@ -1,39 +1,24 @@
 .App {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 75px auto 120px;
-  gap: 2px 2px;
-  grid-template-areas: "header" "middle" "player";
-}
-
-.header { grid-area: header; }
-
-.middle {
-  display: grid;
-  grid-template-columns: .5fr 2fr;
-  grid-template-rows: 1fr;
-  gap: 2px 2px;
-  grid-template-areas: "side-bar songs-panel";
-  grid-area: middle;
-  overflow: hidden;
+  grid-template-columns: 200px auto;
+  grid-template-rows: 50px auto 120px;
+  gap: 1px 1px;
+  grid-template-areas: "side-bar header" "side-bar songs-panel" "player player";
 }
 
 .side-bar { grid-area: side-bar; }
 
-.songs-panel {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 40px 25px auto;
-  gap: 2px 2px;
-  grid-template-areas: "filter" "order-by" "song-list";
-  grid-area: songs-panel;
-  overflow: hidden;
-}
+.header { grid-area: header; }
 
-.filter { grid-area: filter; }
-
-.order-by { grid-area: order-by; }
-
-.song-list { grid-area: song-list; }
+.songs-panel { grid-area: songs-panel; }
 
 .player { grid-area: player; }
+
+.side-bar {
+  border: 1px solid green;
+  padding: 10px;
+}
+
+.header {
+  border: 1px solid red;
+}
