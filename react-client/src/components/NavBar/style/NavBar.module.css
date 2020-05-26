@@ -1,0 +1,15 @@
+.nav-bar {
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: var(--dark-grey);
+}
+
+.nav {
+  /* border: 2px solid pink; */
+  width: 400px;
+  height: 40px;
+  display: flex;
+  justify-content: space-evenly;
+}

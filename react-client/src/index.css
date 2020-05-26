@@ -5,6 +5,16 @@ html, body, #root, .App {
 body {
   --light-blue: #2196f3;
   --dark-blue: #12456e;
+  --dark-grey:#2D2D34;
+  --grey:#424248;
+  --light-grey:#57575D;
+
+  /* --light-blue: #2196f3;
+  --dark-blue: #12456e;
+  --dark-grey:white;
+  --grey:white;
+  --light-grey:white; */
+
   margin: 0;
   padding: 0;
 

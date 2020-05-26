@@ -1,14 +1,15 @@
 .App {
   display: grid;
   grid-template-columns: 200px auto;
-  grid-template-rows: 50px auto 120px;
+  grid-template-rows: 60px auto 120px;
   gap: 1px 1px;
-  grid-template-areas: "side-bar header" "side-bar songs-panel" "player player";
+  grid-template-areas: "side-bar nav-bar" "side-bar songs-panel" "player player";
+  overflow: hidden;
 }
 
 .side-bar { grid-area: side-bar; }
 
-.header { grid-area: header; }
+.nav-bar { grid-area: nav-bar; }
 
 .songs-panel { grid-area: songs-panel; }
 
@@ -17,8 +18,4 @@
 .side-bar {
   border: 1px solid green;
   padding: 10px;
-}
-
-.header {
-  border: 1px solid red;
 }

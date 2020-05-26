@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { uploadSong, addUploadItem } from '../../redux/uploadsActions'
 import { v1 as uuidv1 } from 'uuid'
-import './style/UploadsDropdown.css'
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
+import UDStyle from './style/UploadsDropdown.module.css'
+import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md'
 import FileDrop from './FileDrop'
 import UploadsList from './UploadsList'
 
@@ -59,14 +59,13 @@ const UploadsDropdown = () => {
 
 
   return (
-    <div className="uploads-dropdown">
-      <div className="dropdown-top">
-        <FileDrop getAcceptedFiles={getAcceptedFiles} />
-        <button className="icon-btn icon-btn-drop" onClick={() => setShowList(!showList)}>
-          {showList ? <MdKeyboardArrowDown className="icon" /> :
-            <MdKeyboardArrowUp className="icon" />}
-        </button>
-      </div>
+    <div className={UDStyle.container}>
+      <FileDrop getAcceptedFiles={getAcceptedFiles} />
+      <button href="#uploads" className={UDStyle['icon-btn']} onClick={() => setShowList(!showList)}>
+        {showList ? <MdArrowDropUp className={UDStyle.icon} /> :
+          <MdArrowDropDown className={UDStyle.icon} />}
+      </button>
+
       {showList ? <UploadsList /> : null}
     </div>
   )

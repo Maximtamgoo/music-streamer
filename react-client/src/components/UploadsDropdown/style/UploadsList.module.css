@@ -1,0 +1,14 @@
+.uploads-list {
+  border: 2px solid var(--light-blue);
+  border-radius: 12.5px;
+  background-color: var(--grey);
+  color: var(--light-blue);
+  position: absolute;
+  top: 58px;
+  width: 300px;
+}
+
+.uploads-item {
+  /* border: 2px solid var(--light-blue); */
+  /* border-bottom: 2px dashed var(--light-blue); */
+}

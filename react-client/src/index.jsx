@@ -9,6 +9,7 @@ import uploadsReducer from './redux/uploadsReducer'
 import { addUploadItem } from './redux/uploadsActions'
 
 import 'typeface-roboto'
+// import 'normalize.css'
 import './index.css'
 import App from './components/App'
 
