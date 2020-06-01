@@ -1,6 +1,6 @@
 .App {
   display: grid;
-  grid-template-columns: 200px auto;
+  grid-template-columns: 90px auto;
   grid-template-rows: 60px auto 120px;
   gap: 1px 1px;
   grid-template-areas: "side-bar nav-bar" "side-bar songs-panel" "player player";

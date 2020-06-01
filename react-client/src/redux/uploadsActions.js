@@ -4,9 +4,13 @@ export const uploadSong = (song, id) => {
   return (dispatch) => {
     const formData = new FormData()
     formData.append('song', song)
+
+    const metadata = {fake: 'fake data'}
+    formData.append('metadata', JSON.stringify(metadata))
+
     return axios.post('/api/upload/single', formData, {
       onUploadProgress: (progressEvent) => {
-        console.log('progressEvent:', progressEvent)
+        // console.log('progressEvent:', progressEvent)
         const { loaded, total } = progressEvent
         dispatch(updateProgress(id, loaded, total))
       }

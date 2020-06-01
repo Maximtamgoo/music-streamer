@@ -37,32 +37,27 @@ const multerUpload = multer({ limits: { files: 20, fileSize: 2.5e7 } }) // 25mb 
 app.use(express.json())
 // app.use(express.static('public'))
 
-app.get('/api', (req, res) => {
-  res.send('get /api')
-})
-
 app.post('/api/upload/single', multerUpload.single('song'), async (req, res, next) => {
   console.log('/api/upload/single')
   try {
     console.log('req.file:', req.file.originalName)
+    // console.log('req.body:', req.body)
   } catch (error) {
     console.log('error:', error)
   }
-  
 
-  res.send('res from /api/upload/single')
+  res.send(`req.file: ${req.file.originalName}`)
 })
 
-app.post('/api/upload', multerUpload.array('songs'), async (req, res, next) => {
-  console.log('/api/upload')
-  
-  // const promises = req.files.map(file => {
-  //   return file.originalName
-  // })
-  // const result = await Promise.all(promises)
-  // console.log('result:', result)
-  res.send('res from /api/upload')
+app.get('/api/timestamp', (req, res) => {
+  console.log('get /api/timestamp')
+  res.send({ timestamp: Date.now() })
 })
+
+// app.post('/api/upload', multerUpload.array('songs'), async (req, res, next) => {
+//   console.log('/api/upload')
+//   res.send('res from /api/upload')
+// })
 
 app.use((error, req, res, next) => {
   console.log('error handler:', error)

@@ -16,11 +16,15 @@ import App from './components/App'
 const store = createStore(uploadsReducer, applyMiddleware(ReduxThunk))
 
 // store.subscribe(() => {
+//   console.log('subscriber start')
 //   const state = store.getState()
-//   console.log('subscriber:',state)
+//   console.log('sub:', state)
+//   // Object.keys(state).map((e) => {
+//   //   console.log(`sub: ${e}, ${state[e].name}`)
+//   // })
 // })
-store.dispatch(addUploadItem({ id: 2, name: 'song.mp3' }))
-store.dispatch(addUploadItem({ id: 4, name: 'another song.mp3' }))
+store.dispatch(addUploadItem({ id: 0, name: 'song.mp3' }))
+// store.dispatch(addUploadItem({ id: 1, name: 'another song.mp3' }))
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { uploadSong, addUploadItem } from '../../redux/uploadsActions'
-import { v1 as uuidv1 } from 'uuid'
+// import { v1 as uuidv1 } from 'uuid'
 import UDStyle from './style/UploadsDropdown.module.css'
 import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md'
 import FileDrop from './FileDrop'
@@ -11,10 +11,20 @@ const UploadsDropdown = () => {
   const dispatch = useDispatch()
   const [showList, setShowList] = useState(false)
 
-  const getAcceptedFiles = (songs) => {
+  const getAcceptedFiles = async (songs) => {
+
+    // for (const song of songs) {
+    //   const id = song.name.split('.')[0]
+    //   dispatch(addUploadItem({ id, name: song.name }))
+    //   const res = await dispatch(uploadSong(song, id))
+    //   console.log('res:', res)
+    // }
+
     songs.map(async (song) => {
       try {
-        const id = uuidv1()
+        console.log('song start:', song.name)
+        // const id = uuidv1()
+        const id = song.name.split('.')[0]
         dispatch(addUploadItem({ id, name: song.name }))
         const res = await dispatch(uploadSong(song, id))
         console.log('res:', res)
@@ -25,7 +35,7 @@ const UploadsDropdown = () => {
         console.log('error:', error)
         // dispatch()
       }
-      console.log('end of song iteration')
+      console.log('song end:', song.name)
     })
     console.log('end of map loop')
   }

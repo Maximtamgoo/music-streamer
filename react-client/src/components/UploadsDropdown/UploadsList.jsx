@@ -5,6 +5,7 @@ import UploadsItem from './UploadsItem'
 
 const UploadsList = () => {
   const uploads = useSelector(state => state)
+
   return (
     <div className={style["uploads-list"]}>
       {Object.keys(uploads).map((e, i) => {
