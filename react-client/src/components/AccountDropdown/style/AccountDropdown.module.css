@@ -15,7 +15,7 @@
 .icon-btn {
   /* box-sizing: content-box; */
   border: 2px solid var(--light-blue);
-  border-radius: 12.5px;
+  border-radius: 5px;
   cursor: pointer;
   outline: none;
   padding: 0px;

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { uploadSong, addUploadItem } from '../../redux/uploadsActions'
-// import { v1 as uuidv1 } from 'uuid'
+import { addUploadItem } from '../../redux/SongListActions'
+import { uploadSong } from '../../redux/asyncActions'
+import { v4 as uuidv4 } from 'uuid'
 import UDStyle from './style/UploadsDropdown.module.css'
-import { MdArrowDropUp, MdArrowDropDown } from 'react-icons/md'
+import { MdArrowDropUp, MdArrowDropDown, MdCloudUpload, MdFileUpload } from 'react-icons/md'
 import FileDrop from './FileDrop'
 import UploadsList from './UploadsList'
 
@@ -13,31 +14,34 @@ const UploadsDropdown = () => {
 
   const getAcceptedFiles = async (songs) => {
 
-    // for (const song of songs) {
-    //   const id = song.name.split('.')[0]
-    //   dispatch(addUploadItem({ id, name: song.name }))
-    //   const res = await dispatch(uploadSong(song, id))
-    //   console.log('res:', res)
-    // }
+    // songs.forEach(song => {
+    //   const id = uuidv4()
+    //   dispatch(addUploadItem({ id, filename: song.name }))
+    // })
 
-    songs.map(async (song) => {
+    for (const song of songs) {
+      const id = uuidv4()
       try {
-        console.log('song start:', song.name)
-        // const id = uuidv1()
-        const id = song.name.split('.')[0]
-        dispatch(addUploadItem({ id, name: song.name }))
         const res = await dispatch(uploadSong(song, id))
-        console.log('res:', res)
-        // dispatch(setSongListSynced(false))
-        // or
-        // dispatch(addSongToSongList())
+        console.log('res.data:', res.data)
       } catch (error) {
-        console.log('error:', error)
+        console.log('axios error:', error)
         // dispatch()
       }
-      console.log('song end:', song.name)
-    })
-    console.log('end of map loop')
+    }
+
+    // songs.map(async (song) => {
+    //   console.log('song start:', song.name)
+    //   const id = `upload-${uuidv4()}`
+    //   const timestamp = Date.now()
+    //   dispatch(addUploadItem({ id, filename: song.name, timestamp }))
+    //   dispatch(uploadSong(song, id))
+    //   // dispatch(setSongListSynced(false))
+    //   // or
+    //   // dispatch(addSongToSongList())
+    //   console.log('song end:', song.name)
+    // })
+    // console.log('end of map loop')
   }
 
   // const [currentUploads, setCurrentUploads] = useState({})
@@ -72,8 +76,8 @@ const UploadsDropdown = () => {
     <div className={UDStyle.container}>
       <FileDrop getAcceptedFiles={getAcceptedFiles} />
       <button href="#uploads" className={UDStyle['icon-btn']} onClick={() => setShowList(!showList)}>
-        {showList ? <MdArrowDropUp className={UDStyle.icon} /> :
-          <MdArrowDropDown className={UDStyle.icon} />}
+        {showList ? <MdFileUpload className={UDStyle.icon} /> :
+          <MdCloudUpload className={UDStyle.icon} />}
       </button>
 
       {showList ? <UploadsList /> : null}

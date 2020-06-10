@@ -1,20 +1,21 @@
-// const initState = {
-//   34253461523: {
-//     name: 'song.mp3',
-//     loaded: null,
-//     total: null
+// const uploadsList = {
+//   '12345': {
+//     id: '12345',
+//     filename: 'song.mp3',
+//     loaded: 12345,
+//     total: 10000
 //   }
 // }
 
 const uploadsList = {}
 
 const uploadsReducer = (state = uploadsList, action) => {
-  const { id, name, loaded, total } = action
+  const { tempID, filename, loaded, total } = action
   switch (action.type) {
     case 'ADD_UPLOAD_ITEM':
-      return { ...state, [id]: { name, loaded, total } }
+      return { ...state, [tempID]: { filename, loaded, total } }
     case 'UPDATE_PROGRESS':
-      return { ...state, [id]: { ...state[id], loaded, total } }
+      return { ...state, [tempID]: { ...state[tempID], loaded, total } }
     default:
       return state
   }

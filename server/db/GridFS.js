@@ -9,19 +9,20 @@ class GridFS {
     this.bucket = bucket
   }
 
-  async uploadFileBuffer(filename, buffer, metadata) {
+  async uploadFileBuffer(buffer, filename, metadata) {
     return new Promise((resolve, reject) => {
       let readable = new Readable()
       readable.push(buffer)
       readable.push(null)
       readable.pipe(this.bucket.openUploadStream(filename, { metadata }))
-        .on('finish', (finish) => {
-          console.log('finish:', finish)
-          resolve()
-        })
         .on('error', (error) => {
           reject(error)
         })
+        .on('finish', (finish) => {
+          console.log('finish:', finish)
+          resolve(finish)
+        })
+
     })
   }
 }
