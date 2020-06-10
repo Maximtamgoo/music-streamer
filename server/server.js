@@ -36,9 +36,10 @@ app.post('/api/upload/song', multerUpload.single('song'), async (req, res, next)
     console.log('req.file:', req.file.originalname)
     console.log('req.body:', req.body.tempID)
     const metadata = await extractMetadata.fromBuffer(req.file.buffer)
-    // console.log('metadata:', metadata)
     const result = await gridFS.uploadFileBuffer(req.file.buffer, req.file.originalname, metadata)
-    res.send({ result })
+    console.log('result:', result)
+    const { _id: id, uploadDate } = result
+    res.send({ songData: { id, uploadDate, ...result.metadata } })
   } catch (error) {
     console.log('/api/upload/song error:', error)
     res.send({ error })

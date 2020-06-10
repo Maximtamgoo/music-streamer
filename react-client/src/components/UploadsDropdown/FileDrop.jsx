@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import style from './style/FileDrop.module.css'
-// import extractMetadata from '../../utils/extractMetadata'
 import { MdArrowDropUp, MdArrowDropDown, MdCloudUpload, MdFileUpload } from 'react-icons/md'
 
 const FileDrop = ({ getAcceptedFiles }) => {

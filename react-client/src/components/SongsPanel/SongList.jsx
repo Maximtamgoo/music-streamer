@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import './style/SongList.css'
 import { useSelector } from 'react-redux'

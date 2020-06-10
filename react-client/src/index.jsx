@@ -2,18 +2,22 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 
 import SongListReducer from './redux/SongListReducer'
-import { addUploadItem } from './redux/SongListActions'
+import UploadsReducer from './redux/uploadsReducer'
+import { addUploadItem } from './redux/uploadsActions'
 
 import 'typeface-roboto'
 // import 'normalize.css'
 import './index.css'
 import App from './components/App'
 
-const store = createStore(SongListReducer, applyMiddleware(ReduxThunk))
+const store = createStore(
+  combineReducers({ SongListReducer, UploadsReducer }),
+  applyMiddleware(ReduxThunk)
+)
 
 store.subscribe(() => {
   console.log('subscriber start')

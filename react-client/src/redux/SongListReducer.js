@@ -20,12 +20,10 @@
 const SongList = {}
 
 const SongListReducer = (state = SongList, action) => {
-  const { id, filename, loaded, total, timestamp } = action
+  const { id, title, artists, album, duration, uploadDate } = action
   switch (action.type) {
-    case 'ADD_UPLOAD_ITEM':
-      return { ...state, [id]: { id, filename, loaded, total, timestamp } }
-    case 'UPDATE_PROGRESS':
-      return { ...state, [id]: { ...state[id], loaded, total } }
+    case 'ADD_SONG':
+      return { ...state, [id]: { id, title, artists, album, duration, uploadDate } }
     default:
       return state
   }

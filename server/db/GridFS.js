@@ -19,7 +19,6 @@ class GridFS {
           reject(error)
         })
         .on('finish', (finish) => {
-          console.log('finish:', finish)
           resolve(finish)
         })
 

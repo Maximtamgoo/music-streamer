@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addUploadItem } from '../../redux/SongListActions'
+// import { addUploadItem } from '../../redux/SongListActions'
 import { uploadSong } from '../../redux/asyncActions'
-import { v4 as uuidv4 } from 'uuid'
 import UDStyle from './style/UploadsDropdown.module.css'
 import { MdArrowDropUp, MdArrowDropDown, MdCloudUpload, MdFileUpload } from 'react-icons/md'
 import FileDrop from './FileDrop'
@@ -20,14 +20,7 @@ const UploadsDropdown = () => {
     // })
 
     for (const song of songs) {
-      const id = uuidv4()
-      try {
-        const res = await dispatch(uploadSong(song, id))
-        console.log('res.data:', res.data)
-      } catch (error) {
-        console.log('axios error:', error)
-        // dispatch()
-      }
+      dispatch(uploadSong(song))
     }
 
     // songs.map(async (song) => {

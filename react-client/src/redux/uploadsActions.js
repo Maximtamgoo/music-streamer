@@ -1,6 +1,6 @@
-export const addUploadItem = ({ tempID, filename }) => ({
+export const addUploadItem = ({ id, filename, timestamp }) => ({
   type: 'ADD_UPLOAD_ITEM',
-  tempID, filename, loaded: null, total: null
+  id, filename, loaded: null, total: null, timestamp
 })
 
 export const updateProgress = (id, loaded, total) => ({

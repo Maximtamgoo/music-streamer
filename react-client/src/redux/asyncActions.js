@@ -1,22 +1,27 @@
 import axios from 'axios'
-import { updateProgress } from './SongListActions'
+// import { v4 as uuidv4 } from 'uuid'
+import { addSong } from './SongListActions'
 
-export const uploadSong = (song, id) => {
-  return (dispatch) => {
+export const uploadSong = (song) => {
+  return async (dispatch) => {
+    // const id = uuidv4()
     const formData = new FormData()
     formData.append('song', song)
-    formData.append('tempID', id)
-
-    // const metadata = { fake: 'fake data' }
-    // formData.append('metadata', JSON.stringify(metadata))
-
-    return axios.post('/api/upload/song', formData, {
-      onUploadProgress: (progressEvent) => {
-        // console.log('progressEvent:', progressEvent)
-        const { loaded, total } = progressEvent
-        dispatch(updateProgress(id, loaded, total))
-      }
-    })
+    // formData.append('auth', JSON.stringify(auth))
+    try {
+      const res = await axios.post('/api/upload/song', formData, {
+        onUploadProgress: (progressEvent) => {
+          // console.log('progressEvent:', progressEvent)
+          // const { loaded, total } = progressEvent
+          // dispatch(updateProgress(id, loaded, total))
+        }
+      })
+      dispatch(addSong(res.data.songData))
+      console.log('res.data:', res.data)
+    } catch (error) {
+      console.log('axios error:', error)
+      // dispatch()
+    }
   }
 }
 

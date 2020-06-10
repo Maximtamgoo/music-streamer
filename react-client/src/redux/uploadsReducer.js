@@ -10,12 +10,12 @@
 const uploadsList = {}
 
 const uploadsReducer = (state = uploadsList, action) => {
-  const { tempID, filename, loaded, total } = action
+  const { id, filename, loaded, total, timestamp } = action
   switch (action.type) {
     case 'ADD_UPLOAD_ITEM':
-      return { ...state, [tempID]: { filename, loaded, total } }
+      return { ...state, [id]: { id, filename, loaded, total, timestamp } }
     case 'UPDATE_PROGRESS':
-      return { ...state, [tempID]: { ...state[tempID], loaded, total } }
+      return { ...state, [id]: { ...state[id], loaded, total } }
     default:
       return state
   }
