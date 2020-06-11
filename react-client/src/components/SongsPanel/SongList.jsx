@@ -7,7 +7,7 @@ import SongItem from './SongItem'
 import UploadsItem from './UploadsItem'
 
 const SongList = () => {
-  const state = useSelector(state => state)
+  const songListState = useSelector(state => state.songListReducer)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -29,6 +29,10 @@ const SongList = () => {
 
   return (
     <div className="song-list">
+      {songListState.map((song) => {
+        const {_id, title } = song
+        return <SongItem key={_id} title={title} />
+      })}
       {/* {filter.map((item, i) => {
         const id = item.id
         const { filename, loaded, total } = state[id]

@@ -20,7 +20,7 @@ const UploadsDropdown = () => {
     // })
 
     for (const song of songs) {
-      dispatch(uploadSong(song))
+      await dispatch(uploadSong(song))
     }
 
     // songs.map(async (song) => {

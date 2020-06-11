@@ -1,7 +1,7 @@
 import React from 'react'
 import { MdPlayCircleOutline } from 'react-icons/md'
 
-const SongItem = ({ name }) => {
+const SongItem = ({ _id, title }) => {
 
 
   return (
@@ -9,7 +9,7 @@ const SongItem = ({ name }) => {
       <MdPlayCircleOutline />
       <span>
         {/* {name} - Artist - Album - Date Added - Duration */}
-        {name}
+        {title}
       </span>
     </div>
   )

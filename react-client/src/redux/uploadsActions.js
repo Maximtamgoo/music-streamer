@@ -1,4 +1,4 @@
-import { addSong } from './songListActions'
+import { addSongToHead } from './songListActions'
 import axios from 'axios'
 // import { v4 as uuidv4 } from 'uuid'
 
@@ -16,7 +16,7 @@ export const uploadSong = (song) => {
           // dispatch(updateProgress(id, loaded, total))
         }
       })
-      dispatch(addSong(res.data.songData))
+      dispatch(addSongToHead(res.data.songData))
       console.log('res.data:', res.data)
     } catch (error) {
       console.log('axios error:', error)
