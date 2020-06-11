@@ -21,8 +21,22 @@ class GridFS {
         .on('finish', (finish) => {
           resolve(finish)
         })
-
     })
+  }
+
+  async getOlderSongData(lastItemDate, limit) {
+    try {
+      if (lastItemDate === 'start') {
+        console.log('hello:')
+        return await this.bucket.find().sort({ uploadDate: -1 })
+          .limit(limit).project({ uploadDate: 1, metadata: 1 }).toArray()
+      } else {
+        return await this.bucket.find({ uploadDate: { $lt: new Date(lastItemDate) } }).sort({ uploadDate: -1 })
+          .limit(limit).project({ uploadDate: 1, metadata: 1 }).toArray()
+      }
+    } catch (error) {
+      return error
+    }
   }
 }
 

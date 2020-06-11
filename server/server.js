@@ -17,6 +17,7 @@ mongoose.connect('mongodb://localhost:27017/music-streaming-db', {
   // gridFSBucket.delete(_id, (result) => {
   //   console.log('result:', result)
   // })
+  // await gridFSBucket.find().limit().toArray()
   gridFS.setBucket(gridFSBucket)
 }).catch(error => {
   console.log('error.name:', error.name)
@@ -31,18 +32,26 @@ const multer = require('multer')
 const multerUpload = multer({ limits: { files: 20, fileSize: 2.5e7 } }) // 25mb 2.5e7, 10mb 1e7
 
 app.post('/api/upload/song', multerUpload.single('song'), async (req, res, next) => {
-  console.log('/api/upload/song')
+  console.log(`/api/upload/song: ${req.file.originalname}`)
   try {
-    console.log('req.file:', req.file.originalname)
-    console.log('req.body:', req.body.tempID)
     const metadata = await extractMetadata.fromBuffer(req.file.buffer)
     const result = await gridFS.uploadFileBuffer(req.file.buffer, req.file.originalname, metadata)
-    console.log('result:', result)
     const { _id: id, uploadDate } = result
     res.send({ songData: { id, uploadDate, ...result.metadata } })
   } catch (error) {
     console.log('/api/upload/song error:', error)
     res.send({ error })
+  }
+})
+
+app.get('/api/songs/data', async (req, res, next) => {
+  try {
+    const limit = 2
+    const result = await gridFS.getOlderSongData(req.query.lastItemDate, limit)
+    console.log('result:', result)
+    res.send(result)
+  } catch (error) {
+    console.log('error:', error)
   }
 })
 

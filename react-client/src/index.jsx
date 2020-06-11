@@ -5,9 +5,9 @@ import { Provider } from 'react-redux'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 
-import SongListReducer from './redux/SongListReducer'
-import UploadsReducer from './redux/uploadsReducer'
-import { addUploadItem } from './redux/uploadsActions'
+import songListReducer from './redux/songListReducer'
+import uploadsReducer from './redux/uploadsReducer'
+// import { addUploadItem } from './redux/uploadsActions'
 
 import 'typeface-roboto'
 // import 'normalize.css'
@@ -15,7 +15,7 @@ import './index.css'
 import App from './components/App'
 
 const store = createStore(
-  combineReducers({ SongListReducer, UploadsReducer }),
+  combineReducers({ songListReducer, uploadsReducer }),
   applyMiddleware(ReduxThunk)
 )
 
@@ -27,7 +27,7 @@ store.subscribe(() => {
   //   console.log(`sub: ${e}, ${state[e].name}`)
   // })
 })
-store.dispatch(addUploadItem({ id: '12345', filename: 'song.mp3' }))
+// store.dispatch(addUploadItem({ id: '12345', filename: 'song.mp3' }))
 // store.dispatch(addUploadItem({ tempID: 1, name: 'another song.mp3' }))
 
 ReactDOM.render(

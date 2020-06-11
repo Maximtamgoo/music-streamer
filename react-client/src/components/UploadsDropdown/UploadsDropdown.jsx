@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-// import { addUploadItem } from '../../redux/SongListActions'
-import { uploadSong } from '../../redux/asyncActions'
+// import { addUploadItem } from '../../redux/songListActions'
+import { uploadSong } from '../../redux/uploadsActions'
 import UDStyle from './style/UploadsDropdown.module.css'
 import { MdArrowDropUp, MdArrowDropDown, MdCloudUpload, MdFileUpload } from 'react-icons/md'
 import FileDrop from './FileDrop'

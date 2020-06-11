@@ -1,12 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useEffect } from 'react'
 import './style/SongList.css'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { getSongsData } from '../../redux/songListActions'
 import SongItem from './SongItem'
 import UploadsItem from './UploadsItem'
 
 const SongList = () => {
   const state = useSelector(state => state)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    console.log('useEffect')
+    dispatch(getSongsData({ lastItemDate: 'start' }))
+  }, [dispatch])
 
   // const items = Array(50).fill({ name: 'Song Title' })
 
