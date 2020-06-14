@@ -16,7 +16,7 @@ const songListReducer = (state = songList, action) => {
     case 'ADD_SONG_LIST_TO_TAIL':
       return [...state, ...action.songList]
     case 'ADD_SONG_DATA_TO_HEAD':
-      return [{ ...action.songData }, ...state]
+      return [action.songData, ...state]
     default:
       return state
   }
