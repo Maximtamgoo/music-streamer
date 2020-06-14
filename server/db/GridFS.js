@@ -19,23 +19,34 @@ class GridFS {
           reject(error)
         })
         .on('finish', (finish) => {
-          resolve(finish)
+          const { _id, uploadDate } = finish
+          const { title, artists, album, duration, track } = finish.metadata
+          resolve({ _id, uploadDate, metadata: { title, artists, album, duration, track } })
         })
     })
   }
 
-  async getOlderSongData(lastItemDate, limit) {
+  async getOlderSongList(lastItemDate, limit) {
+
+    const projectObj = {
+      uploadDate: 1,
+      'metadata.title': 1,
+      'metadata.artists': 1,
+      'metadata.album': 1,
+      'metadata.duration': 1,
+      'metadata.track': 1
+    }
+
     try {
       if (lastItemDate === 'start') {
-        console.log('hello:')
         return await this.bucket.find().sort({ uploadDate: -1 })
-          .limit(limit).project({ uploadDate: 1, metadata: 1 }).toArray()
+          .limit(limit).project(projectObj).toArray()
       } else {
         return await this.bucket.find({ uploadDate: { $lt: new Date(lastItemDate) } }).sort({ uploadDate: -1 })
-          .limit(limit).project({ uploadDate: 1, metadata: 1 }).toArray()
+          .limit(limit).project(projectObj).toArray()
       }
     } catch (error) {
-      return error
+      throw error
     }
   }
 }

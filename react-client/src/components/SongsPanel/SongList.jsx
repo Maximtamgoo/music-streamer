@@ -30,8 +30,10 @@ const SongList = () => {
   return (
     <div className="song-list">
       {songListState.map((song) => {
-        const {_id, title } = song
-        return <SongItem key={_id} title={title} />
+        const { _id, uploadDate } = song
+        const { title, artists, album, duration, track } = song.metadata
+        return <SongItem key={_id} id={_id} title={title} artists={artists}
+          album={album} uploadDate={uploadDate} duration={duration} track={track}/>
       })}
       {/* {filter.map((item, i) => {
         const id = item.id

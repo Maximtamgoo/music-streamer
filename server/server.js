@@ -35,9 +35,8 @@ app.post('/api/upload/song', multerUpload.single('song'), async (req, res, next)
   console.log(`/api/upload/song: ${req.file.originalname}`)
   try {
     const extractedMetadata = await extractMetadata.fromBuffer(req.file.buffer)
-    const result = await gridFS.uploadFileBuffer(req.file.buffer, req.file.originalname, extractedMetadata)
-    const { _id, uploadDate, metadata } = result
-    res.send({ songData: { _id, uploadDate, metadata } })
+    const songData = await gridFS.uploadFileBuffer(req.file.buffer, req.file.originalname, extractedMetadata)
+    res.send({ songData })
   } catch (error) {
     console.log('/api/upload/song error:', error)
     res.send({ error })
@@ -47,11 +46,13 @@ app.post('/api/upload/song', multerUpload.single('song'), async (req, res, next)
 app.get('/api/songs/data', async (req, res, next) => {
   try {
     const limit = 2
-    const songList = await gridFS.getOlderSongData(req.query.lastItemDate, limit)
+    let songList = await gridFS.getOlderSongList(req.query.lastItemDate, limit)
+    // songList = songList.map(({ _id, uploadDate, metadata }) => ({ _id, uploadDate, ...metadata }))
     console.log('songList:', songList)
     res.send({ songList })
   } catch (error) {
-    console.log('error:', error)
+    console.log('/api/songs/data error:', error)
+    res.status(500).send({ error })
   }
 })
 
