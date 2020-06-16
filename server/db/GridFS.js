@@ -10,6 +10,10 @@ class GridFS {
   }
 
   async uploadFileBuffer(buffer, filename, metadata) {
+    if (this.bucket === undefined) {
+      throw Error('GridFS.bucket is undefined')
+    }
+
     return new Promise((resolve, reject) => {
       let readable = new Readable()
       readable.push(buffer)
@@ -27,6 +31,9 @@ class GridFS {
   }
 
   async getOlderSongList(lastItemDate, limit) {
+    if (this.bucket === undefined) {
+      throw Error('GridFS.bucket is undefined')
+    }
 
     const projectObj = {
       uploadDate: 1,

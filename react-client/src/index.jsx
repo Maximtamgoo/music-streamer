@@ -7,6 +7,7 @@ import ReduxThunk from 'redux-thunk'
 
 import songListReducer from './redux/songListReducer'
 import uploadsReducer from './redux/uploadsReducer'
+import sortByReducer from './redux/sortByReducer'
 // import { addUploadItem } from './redux/uploadsActions'
 
 import 'typeface-roboto'
@@ -15,7 +16,7 @@ import './index.css'
 import App from './components/App'
 
 const store = createStore(
-  combineReducers({ songListReducer, uploadsReducer }),
+  combineReducers({ songListReducer, uploadsReducer, sortByReducer }),
   applyMiddleware(ReduxThunk)
 )
 

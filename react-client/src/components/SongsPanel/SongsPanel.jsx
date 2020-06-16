@@ -1,14 +1,14 @@
 import React from 'react'
 import './style/SongsPanel.css'
 import Filter from './Filter'
-import OrderBy from './OrderBy'
+import SortBy from './SortBy'
 import SongList from './SongList'
 
 const SongsPanel = () => {
   return (
     <div className="songs-panel">
       <Filter />
-      <OrderBy />
+      <SortBy />
       <SongList />
     </div>
   )

@@ -1,5 +1,4 @@
-const moment = require('moment')
-const { min } = require('moment')
+// const moment = require('moment')
 
 // console.log('Date')
 // console.log('Date.now()  :', Date.now())
@@ -20,27 +19,59 @@ const { min } = require('moment')
 //   return new Promise(resolve => setTimeout(resolve, ms))
 // }
 
-const mongo = moment("2020-06-14T18:52:09.638Z").format('YYYY-MM-D')
-console.log('mongo:', mongo)
+// const mongo = moment("2020-06-14T18:52:09.638Z").format('YYYY-MM-D')
+// console.log('mongo:', mongo)
 
 // const duration = 159.6865306122449
 // const duration = 8959.6865306122449
-const duration = 6800
+// const duration = 6800
 
-let seconds = moment.duration(duration, 'seconds').seconds()
-let minutes = moment.duration(duration, 'seconds').minutes()
-let hours = moment.duration(duration, 'seconds').hours()
+// let seconds = moment.duration(duration, 'seconds').seconds()
+// let minutes = moment.duration(duration, 'seconds').minutes()
+// let hours = moment.duration(duration, 'seconds').hours()
 
-let formatted = (hours === 0) ? '' : `${hours}:`
-formatted += ((hours === 0 && minutes < 10) || (hours != 0 && minutes < 10)) ? `0${minutes}:` : `${minutes}:`
-formatted += (seconds < 10) ? `0${seconds}` : `${seconds}`
+// let formatted = (hours === 0) ? '' : `${hours}:`
+// formatted += ((hours === 0 && minutes < 10) || (hours != 0 && minutes < 10)) ? `0${minutes}:` : `${minutes}:`
+// formatted += (seconds < 10) ? `0${seconds}` : `${seconds}`
 
 // if (formatted.startsWith('0')) { formatted = formatted.substr(1) }
 
 // const formatted = (hours === 0) ? `${minutes} : ${seconds}` : `${hours} : ${minutes} : ${seconds}`
 // const formatted = `${hours} : ${minutes} : ${seconds}`
 
-console.log('seconds:', seconds)
-console.log('minutes:', minutes)
-console.log('hours:', hours)
-console.log('formatted:', formatted)
+// console.log('seconds:', seconds)
+// console.log('minutes:', minutes)
+// console.log('hours:', hours)
+// console.log('formatted:', formatted)
+
+function sortDirectionList() {
+  class Node {
+    constructor(value) {
+      this.value = value
+      this.next = null
+    }
+  }
+  const list = new Node('default')
+  const asc = list.next = new Node('asc')
+  const dec = asc.next = new Node('dec')
+  dec.next = list
+
+  currentNode = dec
+
+  return {
+    nextSortDirection: () => {
+      currentNode = currentNode.next
+      return currentNode.value
+    }
+  }
+}
+
+const { nextSortDirection } = sortDirectionList()
+console.log(nextSortDirection())
+console.log(nextSortDirection())
+console.log(nextSortDirection())
+console.log(nextSortDirection())
+console.log(nextSortDirection())
+console.log(nextSortDirection())
+console.log(nextSortDirection())
+console.log(nextSortDirection())
