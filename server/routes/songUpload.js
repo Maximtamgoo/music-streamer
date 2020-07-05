@@ -3,7 +3,9 @@ const multer = require('multer')
 const multerUpload = multer({ limits: { files: 20, fileSize: 2.5e7 } }) // 25mb 2.5e7, 10mb 1e7
 const streamSongs = require('../db/StreamSongs')
 const cloneable = require('cloneable-readable')
-const { createReadStream, unlink } = require('fs')
+const { createReadStream } = require('fs')
+const { promisify } = require('util')
+const unlink = promisify(require('fs').unlink)
 const extractMetadata = require('../utils/extractMetadata')
 const ffmpeg = require('../utils/ffmpeg')
 
@@ -24,11 +26,11 @@ router.post('/song/upload', multerUpload.single('song'), async (req, res, next) 
 
     const docResult = await streamSongs.uploadFileStream(dashStream, dashFilename, 'dashmanifest', extractedMetadata)
     console.log(`Uploaded ${dashFilename}`)
-    unlink(dashFilePath, (error) => (error) ? console.log('unlink error:', error) : console.log(`Unlinked ${dashFilePath}`))
+    unlink(dashFilePath)
 
     await streamSongs.uploadFileStream(segmentStream, segmentFilename, 'segment')
     console.log(`Uploaded ${segmentFilename}`)
-    unlink(segmentFilePath, (error) => (error) ? console.log('unlink error:', error) : console.log(`Unlinked ${segmentFilePath}`))
+    unlink(segmentFilePath)
 
     const { _id, uploadDate } = docResult
     const { title, artists, album, duration, track } = docResult.metadata
