@@ -1,61 +1,122 @@
 'use strict'
 const express = require('express')
 const app = express()
-const extractMetadata = require('./utils/extractMetadata')
+const mongoose = require('mongoose')
+const streamSongs = require('./db/StreamSongs')
+
+const cors = require('cors')
+app.use(cors())
 
 app.use(express.json())
-// app.use(express.static('public'))
-
-const gridFS = require('./db/GridFS')
-const mongoose = require('mongoose')
+app.use(express.static(`${__dirname}/public`))
 
 mongoose.connect('mongodb://localhost:27017/music-streaming-db', {
   useNewUrlParser: true, useUnifiedTopology: true
 }).then(client => {
-  let gridFSBucket = new mongoose.mongo.GridFSBucket(client.connection.db, { bucketName: 'songs' })
-  // const _id = new mongoose.mongo.ObjectID('5ee027c6af34452adc8fbdd3')
-  // gridFSBucket.delete(_id, (result) => {
-  //   console.log('result:', result)
+  // const originalSongs_Bucket = new mongoose.mongo.GridFSBucket(client.connection.db, {
+  //   bucketName: 'originalsongs'
   // })
-  // await gridFSBucket.find().limit().toArray()
-  gridFS.setBucket(gridFSBucket)
+  const streamSongs_Bucket = new mongoose.mongo.GridFSBucket(client.connection.db, {
+    bucketName: 'streamsongs'
+  })
+  // originalSongs.setBucket(originalSongs_Bucket)
+  streamSongs.setBucket(streamSongs_Bucket)
+  console.log('mongoose client connected.')
 }).catch(error => {
   console.log('error.name:', error.name)
   console.log('error.message:', error.message)
 })
 
 // const User = mongoose.model('users', { username: String })
-
 // const user = new User({username: 'tam'})
 
-const multer = require('multer')
-const multerUpload = multer({ limits: { files: 20, fileSize: 2.5e7 } }) // 25mb 2.5e7, 10mb 1e7
+// http://localhost:3001/single-dash.mpd
+// app.post('/song/upload')
+// app.get('/song/metadata/')
+// app.get('/song/stream/:dashid.mpd')
+// app.get('/song/stream/:dashid.mpd')
 
-app.post('/api/upload/song', multerUpload.single('song'), async (req, res, next) => {
-  console.log(`post /api/upload/song: ${req.file.originalname}`)
-  try {
-    const extractedMetadata = await extractMetadata.fromBuffer(req.file.buffer)
-    const songData = await gridFS.uploadFileBuffer(req.file.buffer, req.file.originalname, extractedMetadata)
-    res.send({ songData })
-  } catch (error) {
-    console.log('/api/upload/song error:', error)
-    res.send({ error })
-  }
-})
+app.use('/', require('./routes/test'))
+app.use('/', require('./routes/songUpload'))
 
-app.get('/api/songs/data', async (req, res, next) => {
-  console.log('get /api/songs/data')
+app.get('/songs/data', async (req, res, next) => {
+  console.log('get /songs/data')
+  console.log('req.query.lastItemDate:', req.query.lastItemDate)
   try {
     const limit = 4
-    let songList = await gridFS.getOlderSongList(req.query.lastItemDate, limit)
+    let songList = await StreamSongs.getOlderSongList(req.query.lastItemDate, limit)
     // songList = songList.map(({ _id, uploadDate, metadata }) => ({ _id, uploadDate, ...metadata }))
-    // console.log('songList:', songList)
+    console.log('songList:', songList)
     res.send({ songList })
   } catch (error) {
-    console.log('/api/songs/data error:', error)
-    res.status(500).send({ error })
+    res.send('hello')
+    // console.log('/songs/data error:', error)
+    // res.status(500).send({ error })
   }
 })
+
+app.get('/song/stream/:id', async (req, res, next) => {
+  console.log('get /song/stream')
+  try {
+    const _id = new mongoose.mongo.ObjectID(req.params.id)
+    const fileData = await gridFS.bucket.find({ _id }).project({ length: 1 }).toArray()
+    const fileLength = fileData[0].length
+
+    const positions = req.headers.range.replace(/bytes=/, '').split('-')
+    const start = parseInt(positions[0], 10)
+    const end = positions[1] ? parseInt(positions[1], 10) : fileLength - 1
+    const chunksize = (end - start)
+
+    console.log('start:', start)
+    console.log('end:', end)
+    console.log('fileLength:', fileLength)
+
+    res.writeHead(206, {
+      'Content-Range': `bytes ${start}-${end}/${fileLength}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': chunksize,
+      // 'Content-Type': 'audio/flac'
+      'Content-Type': 'application/octet-stream'
+    })
+
+    gridFS.bucket.openDownloadStream(_id, { start, end }).pipe(res)
+  } catch (error) {
+    console.log('error:', error)
+  }
+})
+
+app.get('/song/:songid/stream/:filename', async (req, res, next) => {
+  console.log('get /song/stream/:filename')
+  try {
+    const _id = new mongoose.mongo.ObjectID(req.params.id)
+    const fileData = await gridFS.bucket.find({ _id }).project({ length: 1 }).toArray()
+    const fileLength = fileData[0].length
+
+    const positions = req.headers.range.replace(/bytes=/, '').split('-')
+    const start = parseInt(positions[0], 10)
+    const end = positions[1] ? parseInt(positions[1], 10) : fileLength - 1
+    const chunksize = (end - start)
+
+    console.log('start:', start)
+    console.log('end:', end)
+    console.log('fileLength:', fileLength)
+
+    res.writeHead(206, {
+      'Content-Range': `bytes ${start}-${end}/${fileLength}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': chunksize,
+      // 'Content-Type': 'audio/flac'
+      'Content-Type': 'application/octet-stream'
+    })
+
+    gridFS.bucket.openDownloadStream(_id, { start, end }).pipe(res)
+  } catch (error) {
+    console.log('error:', error)
+  }
+  // const mpdfilename = req.params.mpd
+  res.sendFile(`${__dirname}/ffmpeg-test/single-dash.mpd`)
+})
+
 
 app.use((error, req, res, next) => {
   console.log('error handler:', error)

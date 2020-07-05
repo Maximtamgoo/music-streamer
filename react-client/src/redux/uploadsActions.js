@@ -9,15 +9,16 @@ export const uploadSong = (song) => {
     formData.append('song', song)
     // formData.append('auth', JSON.stringify(auth))
     try {
-      const res = await axios.post('/api/upload/song', formData, {
+      const res = await axios.post('/song/upload', formData, {
         onUploadProgress: (progressEvent) => {
           // console.log('progressEvent:', progressEvent)
           // const { loaded, total } = progressEvent
           // dispatch(updateProgress(id, loaded, total))
         }
       })
-      dispatch(addSongDataToHead(res.data.songData))
       console.log('res.data:', res.data)
+      dispatch(addSongDataToHead(res.data.songData))
+      
     } catch (error) {
       console.log('axios error:', error)
       // dispatch()
