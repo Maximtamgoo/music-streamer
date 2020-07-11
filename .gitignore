@@ -1,6 +1,7 @@
 # dependencies
 /node_modules
 /server/utils/temp
+/server/public
 
 # misc
 .env.local

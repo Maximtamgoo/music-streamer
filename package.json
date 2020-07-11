@@ -20,6 +20,7 @@
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.18",
     "multer": "^2.0.0-rc.2",
-    "music-metadata": "^6.4.0"
+    "music-metadata": "^6.4.0",
+    "uuid": "^8.2.0"
   }
 }

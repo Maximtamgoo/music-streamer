@@ -1,3 +1,4 @@
+const ObjectId = require('mongoose').mongo.ObjectId
 const GridFS = require('./GridFS')
 
 class StreamSongs {
@@ -13,9 +14,26 @@ class StreamSongs {
     return GridFS.uploadFileStream(this.bucket, stream, filename, contentType, metadata)
   }
 
+  async getDashManifest(songId) {
+    if (this.bucket === undefined) {
+      throw Error('bucket is undefined')
+    }
+
+    return new Promise((resolve, reject) => {
+      this.bucket.openDownloadStream(ObjectId(songId))
+        .pipe(createWriteStream('./output.flac'))
+        .on('error', function (error) {
+          reject(error)
+        })
+        .on('finish', function () {
+          resolve('download done!')
+        })
+    })
+  }
+
   async getOlderSongList(lastItemDate, limit) {
     if (this.bucket === undefined) {
-      throw Error('GridFS.bucket is undefined')
+      throw Error('bucket is undefined')
     }
 
     const projectObj = {

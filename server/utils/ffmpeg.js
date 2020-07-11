@@ -1,14 +1,17 @@
 const { spawn } = require('child_process')
 const createDir = require('./createDir')
+const { v4: uuidv4 } = require('uuid')
 
 const createDashFiles = (stream, filename) => {
   return new Promise(async (resolve, reject) => {
     try {
       await createDir(`${__dirname}/temp`)
 
-      const dashFilename = `${filename}-manifest.mpd`
+      const dashId = uuidv4()
+
+      const dashFilename = `manifest-${dashId}.mpd`
       const dashFilePath = `${__dirname}/temp/${dashFilename}`
-      const segmentFilename = `${filename}-segment`
+      const segmentFilename = `segment-${dashId}`
       const segmentFilePath = `${__dirname}/temp/${segmentFilename}`
 
       const args = ['-i', 'pipe:0', '-single_file_name', segmentFilename, '-f', 'dash', dashFilePath]
@@ -47,4 +50,13 @@ const createDashFiles = (stream, filename) => {
   })
 }
 
-module.exports = { createDashFiles }
+const convertToOgg = (stream) => {
+  return new Promise(async (resolve, reject) => {
+//ffmpeg -i "03 - Peaceful Sleep.mp3" -acodec libvorbis mp3.oga
+    const args = ['-i', 'pipe:0', '-acodec', 'libvorbis', 'pipe:1']
+    const ffmpeg = spawn('ffmpeg', args)
+
+  })
+}
+
+module.exports = { createDashFiles, convertToOgg }

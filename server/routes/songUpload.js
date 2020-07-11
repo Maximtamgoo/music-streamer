@@ -26,15 +26,15 @@ router.post('/song/upload', multerUpload.single('song'), async (req, res, next) 
 
     const docResult = await streamSongs.uploadFileStream(dashStream, dashFilename, 'dashmanifest', extractedMetadata)
     console.log(`Uploaded ${dashFilename}`)
-    unlink(dashFilePath)
+    // unlink(dashFilePath)
 
     await streamSongs.uploadFileStream(segmentStream, segmentFilename, 'segment')
     console.log(`Uploaded ${segmentFilename}`)
-    unlink(segmentFilePath)
+    // unlink(segmentFilePath)
 
-    const { _id, uploadDate } = docResult
+    const { filename: manifest, uploadDate } = docResult
     const { title, artists, album, duration, track } = docResult.metadata
-    const songData = { _id, uploadDate, metadata: { title, artists, album, duration, track } }
+    const songData = { manifest, uploadDate, metadata: { title, artists, album, duration, track } }
 
     // await originalSongs.uploadFileStream({ stream, filename })
 
