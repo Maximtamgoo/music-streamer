@@ -17,7 +17,12 @@ router.post('/song/upload', multerUpload.single('song'), async (req, res, next) 
     const reqFilename = req.file.originalName
     const extractedMetadata = await extractMetadata.fromStream(reqStream)
     console.log('Extracted Metadata')
-    const { dashFilename, dashFilePath, segmentFilename, segmentFilePath } = await ffmpeg.createDashFiles(reqStream, reqFilename)
+
+    const oggStream = await ffmpeg.convertstreamToOgg(reqStream)
+    console.log('oggStream:', oggStream)
+    console.log('Converted to .ogg stream')
+
+    const { dashFilename, dashFilePath, segmentFilename, segmentFilePath } = await ffmpeg.createDashFiles(OggStream, reqFilename)
     reqStream.destroy()
     console.log('Created Dash Files')
 

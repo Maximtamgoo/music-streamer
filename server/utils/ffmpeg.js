@@ -2,6 +2,22 @@ const { spawn } = require('child_process')
 const createDir = require('./createDir')
 const { v4: uuidv4 } = require('uuid')
 
+const convertstreamToOgg = (stream) => {
+  return new Promise(async (resolve, reject) => {
+    //ffmpeg -i "03 - Peaceful Sleep.mp3" -acodec libvorbis mp3.oga
+    const args = ['-i', 'pipe:0', '-acodec', 'libvorbis', 'pipe:1']
+    const ffmpeg = spawn('ffmpeg', args)
+
+    ffmpeg.stdout.on('end', (end) => {
+      resolve(ffmpeg.stdout)
+    })
+
+    stream.pipe(ffmpeg.stdin)
+    //! return ffmpeg.stdout
+
+  })
+}
+
 const createDashFiles = (stream, filename) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -50,13 +66,4 @@ const createDashFiles = (stream, filename) => {
   })
 }
 
-const convertToOgg = (stream) => {
-  return new Promise(async (resolve, reject) => {
-//ffmpeg -i "03 - Peaceful Sleep.mp3" -acodec libvorbis mp3.oga
-    const args = ['-i', 'pipe:0', '-acodec', 'libvorbis', 'pipe:1']
-    const ffmpeg = spawn('ffmpeg', args)
-
-  })
-}
-
-module.exports = { createDashFiles, convertToOgg }
+module.exports = { createDashFiles, convertstreamToOgg }
