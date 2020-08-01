@@ -1,24 +1,24 @@
 import React from 'react'
-import './App.css'
-import NavBar from './NavBar/NavBar'
-import UploadsDropdown from './UploadsDropdown/UploadsDropdown'
-import AccountDropdown from './AccountDropdown/AccountDropdown'
-import SongsPanel from './SongsPanel/SongsPanel'
-import Player from './Player/Player'
+// import style from './style/App.module.css'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import LoginPage from './LoginPage/LoginPage'
+import MainPage from './MainPage/MainPage'
+import PrivateRoute from '../routers/PrivateRoute'
+import PublicRoute from '../routers/PublicRoute'
 
 const App = () => {
   return (
-    <div className="App">
-      <div className="side-bar">
-        side-bar
-      </div>
-      <NavBar>
-        <UploadsDropdown />
-        <AccountDropdown />
-      </NavBar>
-      <SongsPanel />
-      <Player />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <PrivateRoute path="/" exact>
+          <MainPage />
+        </PrivateRoute>
+        <PublicRoute path="/login" exact>
+          <LoginPage />
+        </PublicRoute>
+        <Route render={() => <h1>404: page not found</h1>} />
+      </Switch>
+    </BrowserRouter>
   )
 }
 

@@ -1,4 +1,4 @@
-.App {
+.main-page {
   display: grid;
   grid-template-columns: 90px auto;
   grid-template-rows: 60px auto 120px;

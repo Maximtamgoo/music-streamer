@@ -37,7 +37,7 @@ mongoose.connect('mongodb://localhost:27017/music-streaming-db', {
 // app.get('/song/stream/:dashid.mpd')
 
 app.use('/', require('./routes/test'))
-// app.use('/', require('./routes/register'))
+app.use('/', require('./routes/register'))
 // app.use('/', require('./routes/signin'))
 app.use('/', require('./routes/songList'))
 // app.use('/', require('./routes/songUpload'))
